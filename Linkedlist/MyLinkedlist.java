@@ -1,10 +1,10 @@
 package Linkedlist;
 
-public class MyLinkedlist {
-    private Node head = null;
+public class MyLinkedlist<E> {
+    private Node<E> head;
 
     public int getSize() {
-        Node current = head;
+        Node<E> current = head;
         int size = 0;
         while (current != null) {
             current = current.getNext();
@@ -13,16 +13,19 @@ public class MyLinkedlist {
         return size;
     }
 
-    public void showNodes() {
-        Node current = head;
+    @Override
+    public String toString() {
+        String temp = "";
+        Node<E> current = head;
         while (current != null) {
-            System.out.print(current.getData());
+            temp = temp + ", " + current.getData();
             current = current.getNext();
         }
+        return temp;
     }
 
-    public Node searchNode(int data) {
-        Node current = head;
+    public Node<E> searchNode(E data) {
+        Node<E> current = head;
         while (current != null) {
             if (current.getData() == data) {
                 return current;
@@ -32,16 +35,16 @@ public class MyLinkedlist {
         return null;
     }
 
-    public void insertLast(int data) {
-        Node new_node = new Node(data);
+    public void insertLast(E data) {
+        Node<E> new_Node = new Node<E>(data);
         if (head == null) {
-            head = new_node;
+            head = new_Node;
             head.setNext(null);
         } else {
-            Node current = head;
+            Node<E> current = head;
             while (current != null) {
                 if (current.getNext() == null) {
-                    current.setNext(new_node);
+                    current.setNext(new_Node);
                     return;
                 }
                 current = current.getNext();
@@ -49,22 +52,32 @@ public class MyLinkedlist {
         }
     }
 
-    public int removeLast() {
-        Node current = head;
+    public E removeLast() {
+        Node<E> current = head;
+        Node<E> previous = null;
         if (head == null) {
-            return 0;
+            return null;
         }
-        int removed_data = 0;
-        while (current.getNext().getNext() != null) {
-            removed_data = current.getData();
+
+        // E removed_data = null;
+        while (current.next != null) {
+            // removed_data = current.getData();
+            previous = current;
             current = current.getNext();
         }
+
+        if (previous == null) {
+            head = null;
+        } else {
+            previous.next = null;
+        }
+        E data = current.data;
         current.setNext(null);
-        return removed_data;
+        return data;
     }
 
-    public void insertFirst(int data) {
-        Node new_head = new Node(data);
+    public void insertFirst(E data) {
+        Node<E> new_head = new Node<E>(data);
         if (head != null) {
             new_head.setNext(head);
             head = new_head;
@@ -74,23 +87,25 @@ public class MyLinkedlist {
         }
     }
 
-    public int removeFirst() {
+    public E removeFirst() {
+
         if (head != null) {
-            head = head.getNext();
-            return head.getData();
+            E data = head.data;
+            head = head.next;
+            return data;
         }
-        return -1;
+        return null;
     }
 
     public boolean isEmpty() {
         return head == null;
     }
 
-    public int getLastNode() {
+    public E getLastNode() {
         if (head == null) {
-            return 0;
+            return null;
         }
-        Node current = head;
+        Node<E> current = head;
         while (current.getNext() != null) {
             current = current.getNext();
         }
@@ -99,24 +114,16 @@ public class MyLinkedlist {
     }
 
     public static void main(String[] args) {
-        MyLinkedlist list = new MyLinkedlist();
-        // list.head = new Node(4);
+        MyLinkedlist<Integer> list = new MyLinkedlist<Integer>();
+        // list.head = new Node<e>(4);
 
         list.insertFirst(1);
         list.insertFirst(2);
-        list.insertLast(7);
-        list.insertLast(8);
-
-        // System.out.print("Linked List: ");
-        // list.showNodes();
-        // System.out.println();
-        // System.out.print("Search Result: " + list.searchNode(2).getNext().getData());
-        // // System.out.println();
-        // // list.removeAfter();
-        // // list.showNodes();
-        // System.out.println();
-        // System.out.println("Size of LinkedList" + list.getSize());
-        // System.out.println("Last Node: " + list.getLastNode());
+        list.insertFirst(7);
+        list.insertFirst(8);
+        ;
+        System.out.println(list);
+        list.removeLast();
         System.out.println(list);
     }
 }

@@ -1,27 +1,27 @@
 package Linkedlist;
 
-public class Node {
-    private int data;
-    Node next;
+public class Node<E> {
+    E data;
+    Node<E> next;
 
-    public Node(int data) {
+    public Node(E data) {
         this.data = data;
         next = null;
     }
 
-    public Node getNext() {
+    public Node<E> getNext() {
         return next;
     }
 
-    public void setNext(Node next) {
+    public void setNext(Node<E> next) {
         this.next = next;
     }
 
-    public void setData(int data) {
+    public void setData(E data) {
         this.data = data;
     }
 
-    public int getData() {
+    public E getData() {
         return data;
     }
 }

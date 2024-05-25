@@ -2,18 +2,18 @@ package Queue;
 
 import Linkedlist.MyLinkedlist;
 
-public class Queue {
-    MyLinkedlist queue;
+public class Queue<E> {
+    MyLinkedlist<E> queue;
 
     public Queue() {
-        queue = new MyLinkedlist();
+        queue = new MyLinkedlist<E>();
     }
 
-    public void enqueue(int data) {
+    public void enqueue(E data) {
         queue.insertLast(data);
     }
 
-    public int dequeue() {
+    public E dequeue() {
         return queue.removeFirst();
     }
 
@@ -26,11 +26,11 @@ public class Queue {
     }
 
     public void show() {
-        queue.showNodes();
+        System.out.println(queue);
     }
 
     public static void main(String[] args) {
-        Queue q = new Queue();
+        Queue<Integer> q = new Queue<Integer>();
         q.enqueue(5);
         q.enqueue(4);
         q.enqueue(3);

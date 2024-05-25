@@ -3,18 +3,18 @@ package Stack;
 import Linkedlist.MyLinkedlist;
 import Linkedlist.Node;
 
-public class Stack {
-    MyLinkedlist stack;
+public class Stack<E> {
+    MyLinkedlist<E> stack;
 
     public Stack() {
-        stack = new MyLinkedlist();
+        stack = new MyLinkedlist<E>();
     }
 
-    public void push(int data) {
+    public void push(E data) {
         stack.insertLast(data);
     }
 
-    public int pop() {
+    public E pop() {
         return stack.removeLast();
     }
 
@@ -26,29 +26,28 @@ public class Stack {
         return stack.isEmpty();
     }
 
-    public void show() {
-        stack.showNodes();
+    @Override
+    public String toString() {
+        return stack.toString();
     }
 
-    public int peek() {
+    public E peek() {
         return stack.getLastNode();
     }
 
-    Node search(int data) {
+    Node<E> search(E data) {
         return stack.searchNode(data);
     }
 
     public static void main(String[] args) {
-        Stack s = new Stack();
+        Stack<Integer> s = new Stack<Integer>();
         s.push(5);
         s.push(4);
         s.push(3);
         s.push(2);
         s.push(1);
-        s.show();
-        System.out.println();
+        System.out.println(s);
         // s.pop();
-        s.show();
         System.out.println();
         System.out.println(s.isEmpty());
         System.out.println(s.peek());

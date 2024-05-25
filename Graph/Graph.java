@@ -1,5 +1,8 @@
 package Graph;
 
+import Queue.Queue;
+import Stack.Stack;
+
 public class Graph {
     private int maxVertex = 10;
     private Vertex[] vertexList;
@@ -60,6 +63,54 @@ public class Graph {
         return temp;
     }
 
+    private void BFS(Vertex seed) {
+        Queue<Vertex> queue = new Queue<Vertex>();
+        queue.enqueue(seed);
+
+        while (queue.isEmpty() == false) {
+            Vertex x = queue.dequeue();
+            if (x.flagVisited == false) {
+                System.out.print(x.label + " ");
+                x.flagVisited = true;
+                for (int i = 0; i < countVertex; i++) {
+                    if (adjacencyMatrix[indexVertex(x.label)][i] >= 1
+                            && !vertexList[i].flagVisited) {
+                        System.out.println("Get " + vertexList[i].label);
+
+                        queue.enqueue(vertexList[i]);
+                    }
+                }
+            }
+        }
+
+    }
+
+    public void BFS() {
+        BFS(vertexList[0]);
+    }
+
+    public void DFS() {
+        DFS(vertexList[0]);
+    }
+
+    private void DFS(Vertex seed) {
+        Stack<Vertex> stack = new Stack<Vertex>();
+        stack.push(seed);
+        while (stack.isEmpty() == false) {
+            Vertex x = stack.pop();
+            if (x.flagVisited == false) {
+                System.out.println(x.label + " ");
+                x.flagVisited = true;
+                for (int i = countVertex - 1; i >= 0; i--) {
+                    if (adjacencyMatrix[indexVertex(x.label)][i] >= 1 && !vertexList[i].flagVisited) {
+                        System.out.println("Get " + vertexList[i].label);
+                        stack.push(vertexList[i]);
+                    }
+                }
+            }
+
+        }
+    }
     // public void show() {
     // for (int i = 0; i < maxVertex; i++) {
     // for (int j = 0; j < maxVertex; j++) {
